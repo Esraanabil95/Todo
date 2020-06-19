@@ -1,0 +1,43 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="text-center">
+<p >
+    {% if request.user.is_authenticated %}
+    <div class="alert alert-warning" role="alert">
+        Hello {{ request.user.username }} 
+      </div>
+    {% else %}
+      <div class="alert alert-warning" role="alert">
+        Hello anonymous user
+      </div>
+    {% endif %}
+</p>
+    
+    <a class="btn btn-warning" href="/create">Create a todo</a>
+</div>
+   <div class="col-4 offst-4 text-center" >
+      
+       {% for todo in todo_list %}
+       <div class="card mt-3 ">
+           <div class="card-header">
+            <a href="/{{todo.id}}"><h4> {{ todo.name}}</h4></a>
+           </div>
+           <div class="card-body">
+               <p>it's due {{ todo.due_date}} </p>
+           </div> 
+           <div class="card-footer">
+               <a href="/{{ todo.id}}/update/" class="btn btn-secondary">
+            update this todo </a>
+            <a href="/{{ todo.id}}/delete/" class="btn btn-secondary">
+                delete this todo </a>
+
+           </div>     
+    </div>
+       {% endfor %}
+
+    </div>
+
+   {% endblock %}
+    
